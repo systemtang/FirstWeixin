@@ -2,6 +2,7 @@ package com.st.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.st.po.News;
 import com.st.po.NewsMessage;
 import com.st.po.TextMessage;
 import com.thoughtworks.xstream.XStream;
@@ -54,10 +56,15 @@ public class MessageUtil {
 		return stream.toXML(message);
 	}
 	
-	
+	/**
+	 * 将图文信息转为xml
+	 * @param message
+	 * @return
+	 */
 	public static String textNewsToXml(NewsMessage message){
 		XStream stream = new XStream();
 		stream.alias("xml", message.getClass());
+		stream.alias("item", new News().getClass());
 		return stream.toXML(message);
 	}
 	
@@ -81,6 +88,26 @@ public class MessageUtil {
 		return sb.toString();
 	}
 	
+	public static String returnPicNews(){
+		String message = null;
+		
+		List<News> newsList = new ArrayList<News>();
+		NewsMessage newsMessage = new NewsMessage();
+		
+		News news = new News();
+		news.setTitle("关爱单生狗");
+		news.setDescription("");
+		news.setPicUrl("");
+		news.setUrl("");
+		
+		return null;
+	}
+	
+	/**
+	 * 用户输入其他内容时回复
+	 * @param content
+	 * @return
+	 */
 	public static String returnOtherMessage(String content){
 		StringBuffer sb = new StringBuffer();
 		sb.append("你输入的消息是：");
